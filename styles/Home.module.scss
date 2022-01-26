@@ -16,7 +16,7 @@
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid #0063a5;
   justify-content: center;
   align-items: center;
 }
@@ -29,7 +29,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: #0063a5;
   text-decoration: none;
 }
 
@@ -88,8 +88,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #0063a5;
+  border-color: #0063a5;
 }
 
 .card h2 {
