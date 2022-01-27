@@ -1,4 +1,4 @@
-export type Article = {
+export type Post = {
     title: string;
     content: string;
     published: boolean;
@@ -7,5 +7,5 @@ export type Article = {
 }
 
 export type Feed = {
-    feed: Article[];
+    feed: Post[];
 }

@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
-import { GetStaticProps, GetStaticPaths } from 'next'
 import prisma from '../../lib/prisma'
 import superjson from 'superjson'
-import {Feed} from "./types";
-import { Article } from '../posts/types'
+import { Post } from './types'
+import { Params } from 'next/dist/server/router'
 
-const Post = (article: Article) => {
+
+const Post  = (post: Post) => {
     return(
-        <div>{article.title}</div>
+        <div>{post.title}</div>
     )
 }
 
@@ -24,7 +24,7 @@ export const getStaticPaths = async () => {
 
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: Params) => {
     // @ts-ignore
     const article = await prisma.post.findUnique({
         where: { slug: params.slug }
@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     article.createdAt = superjson.stringify(article.createdAt)
 
     return {
-        props:  article ,
+        props: article,
     }
 }
 

@@ -1,10 +1,9 @@
-import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import styles from '../../styles/Home.module.scss'
 import prisma from '../../lib/prisma'
-import PostCard from '../../components/Post'
-import { Article, Feed } from './types'
+import PostCard from '../../components/PostCard'
+import { Post, Feed } from './types'
 import superjson from 'superjson'
 
 const Posts = ({ feed }: Feed) => {
@@ -16,12 +15,12 @@ const Posts = ({ feed }: Feed) => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to my Blog!
         </h1>
 
 
         <div className={styles.grid}>
-          {feed.map((post: Article, index: number) => (
+          {feed.map((post: Post, index: number) => (
               <PostCard post={post} key={index}/>
           ))}
         </div>
@@ -43,6 +42,8 @@ export const getStaticProps: GetStaticProps = async () =>{
         post.createdAt = superjson.stringify(post.createdAt)
         return post;
     })
+
+    console.log('HERE', feed)
 
     return {
         props: { feed },
