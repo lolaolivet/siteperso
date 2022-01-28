@@ -2,8 +2,9 @@ import prisma from '../../lib/prisma'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Head from "next/head"
 import styles from '../../styles/Home.module.scss'
-import { EventHandler, SyntheticEvent } from 'react'
+import { EventHandler, FormEvent, FormEventHandler, SyntheticEvent } from 'react'
 import { Post } from '../posts/types'
+import { takeCoverage } from 'v8'
 
 export default function Component() {
     const { data: session } = useSession()
@@ -19,7 +20,7 @@ export default function Component() {
                         Admin!
                     </h1>
                     <div className={styles.card}>
-                        <form onSubmit={registerUser}>
+                        <form onSubmit={createPost}>
                             <label htmlFor="title">Title</label>
                             <input id="title" type="text" autoComplete="title" required />
 
@@ -52,16 +53,13 @@ export default function Component() {
 }
 
 
-const registerUser = async (event: SyntheticEvent) => {
+const createPost = async (event: any) => {
     event.preventDefault()
-
-    console.log(event.target.published.checked)
-
-    const res = await fetch('/api/post', {
+    await fetch('/api/post', {
         body: JSON.stringify({
             title: event.target.title.value,
-            slug: event.target.slug.value,
             content: event.target.content.value,
+            slug: event.target.content.value,
             published: event.target.published.checked,
         }),
         headers: {
@@ -69,6 +67,4 @@ const registerUser = async (event: SyntheticEvent) => {
         },
         method: 'POST'
     })
-    const result = await res.json();
-    console.log(result);
 }
