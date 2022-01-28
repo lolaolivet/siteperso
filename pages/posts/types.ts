@@ -3,7 +3,7 @@ export type Post = {
     content: string;
     published: boolean;
     slug: string;
-    date: string;
+    date?: string;
 }
 
 export type Feed = {
