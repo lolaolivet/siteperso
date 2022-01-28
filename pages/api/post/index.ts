@@ -14,8 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             published: data.published,
         }
     })
-    console.log(response);
-
 
     res.status(200).json({ message: 'Post was successfully created!' })
 }

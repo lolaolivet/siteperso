@@ -43,8 +43,6 @@ export const getStaticProps: GetStaticProps = async () =>{
         return post;
     })
 
-    console.log('HERE', feed)
-
     return {
         props: { feed },
     }
