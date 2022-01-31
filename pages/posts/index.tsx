@@ -32,7 +32,7 @@ const Posts = ({ feed }: Feed) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () =>{
+export const getStaticProps: GetStaticProps = async () => {
     const feed = await prisma.post.findMany({
         where: { published: true },
     })

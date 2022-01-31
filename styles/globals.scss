@@ -6,6 +6,7 @@ body {
   color: #e0dfdf;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  border-color: #e0dfdf;
 }
 
 a {
@@ -13,6 +14,15 @@ a {
   text-decoration: none;
 }
 
+.table {
+  color: inherit;
+  border-color: #0063a5
+}
+
 * {
   box-sizing: border-box;
+}
+
+textarea {
+  height: 200px;
 }

@@ -1,70 +1,76 @@
-import prisma from '../../lib/prisma'
-import { useSession, signIn, signOut } from "next-auth/react"
-import Head from "next/head"
+import { GetStaticProps } from "next"
+import prisma from "../../lib/prisma"
+import { Post, Posts } from "../posts/types"
+import superjson from 'superjson';
 import styles from '../../styles/Home.module.scss'
-import { EventHandler, FormEvent, FormEventHandler, SyntheticEvent } from 'react'
-import { Post } from '../posts/types'
-import { takeCoverage } from 'v8'
+import PostShow from '../../components/PostShow'
+import Head from "next/head";
+import Link from "next/link";
+import GoBack from "../../components/GoBack";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons/faPen'
+import { useState } from "react";
 
-export default function Component() {
-    const { data: session } = useSession()
-    if (session) {
-        return (
-            <div className={styles.container}>
-                <Head>
-                <title>Blogiblog</title>
-                </Head>
+const ShowPosts = ({ posts }: Posts) => {
 
-                <main className={styles.main}>
-                    <h1 className={styles.title}>
-                        Admin!
-                    </h1>
-                    <div className={styles.card}>
-                        <form onSubmit={createPost}>
-                            <label htmlFor="title">Title</label>
-                            <input id="title" type="text" autoComplete="title" required />
+    const [feed, setFeed] = useState(posts)
 
-                            <label htmlFor="content">Content</label>
-                            <input id="content" type="textarea" autoComplete="content" required />
-
-                            <label htmlFor="title">Slug</label>
-                            <input id="slug" type="text" autoComplete="slug" required />
-
-                            <label htmlFor="published">Publish it ?</label>
-                            <input id="published" name="published" type="checkbox"/>
-                            <button type="submit">Register</button>
-                        </form>
-                    </div>
-                
-                </main>
-
-                <footer className={styles.footer}>
-                    <button onClick={() => signOut()}>Sign out</button>
-                </footer>
-            </div>
-        )
+    const deletePost = (data: string) => {
+        const newFeed = feed.filter(post => post.id !== parseInt(data))
+        
+        setFeed(newFeed)
     }
+
     return (
-            <div className={styles.container}>
-                Not signed in <br />
-                <button onClick={() => signIn()}>Sign in</button>
-            </div>
+        <div className={styles.container}>
+            <Head>
+            <title>Blogiblog</title>
+            </Head>
+
+            <main className={styles.main}>
+                <h1 className={styles.title}>
+                    Admin
+                </h1>
+                <div>
+                    <GoBack path="/" />
+                </div>
+                <h3 className="mt-3">
+                    <Link href="/create">Write an article </Link>
+                    <FontAwesomeIcon icon={ faPen } />
+                </h3>
+
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Published</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {feed.map((post: Post, index: number) => (
+                            <PostShow post={post} key={index} delete={deletePost}/>
+                        ))}
+                    </tbody>
+                </table>
+            </main>
+        </div>
     )
 }
 
-
-const createPost = async (event: any) => {
-    event.preventDefault()
-    await fetch('/api/post', {
-        body: JSON.stringify({
-            title: event.target.title.value,
-            content: event.target.content.value,
-            slug: event.target.content.value,
-            published: event.target.published.checked,
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST'
+export const getStaticProps: GetStaticProps = async () => {
+    const posts = await prisma.post.findMany();
+    
+    posts.map((post) => {
+        // @ts-ignore
+        post.createdAt = superjson.stringify(post.createdAt)
+        return post;
     })
+
+    return {
+        props: { posts },
+    }
 }
+
+export default ShowPosts

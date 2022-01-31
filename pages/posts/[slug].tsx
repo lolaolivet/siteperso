@@ -1,13 +1,25 @@
-import type { NextPage } from 'next'
 import prisma from '../../lib/prisma'
 import superjson from 'superjson'
 import { Post } from './types'
 import { Params } from 'next/dist/server/router'
+import styles from '../../styles/Home.module.scss'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import GoBack from '../../components/GoBack'
 
 
 const Post  = (post: Post) => {
     return(
-        <div>{post.title}</div>
+        <div className={styles.container}>
+            <h1 className={styles.title}>
+                {post.title}
+            </h1>
+            <GoBack path='/' />
+            <div>
+                {post.content}
+            </div>
+        </div>
     )
 }
 

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'

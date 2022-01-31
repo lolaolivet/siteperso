@@ -1,4 +1,5 @@
 export type Post = {
+    id: number;
     title: string;
     content: string;
     published: boolean;
@@ -8,4 +9,8 @@ export type Post = {
 
 export type Feed = {
     feed: Post[];
+}
+
+export type Posts = {
+    posts: Post[];
 }
