@@ -13,7 +13,7 @@ const { data: session } = useSession()
 
     return (
         <footer className={styles.footer}>
-            <button className="btn btn-outline-secondary" onClick={() => signIn()}>Sign out</button>
+            <button className="btn btn-outline-secondary" onClick={() => signIn()}>Sign In</button>
         </footer>
     )
     
