@@ -4,14 +4,13 @@ import { Post, Posts } from "../posts/types"
 import superjson from 'superjson';
 import styles from '../../styles/Home.module.scss'
 import PostShow from '../../components/PostShow'
-import Head from "next/head";
 import Link from "next/link";
-import GoBack from "../../components/GoBack";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen'
 import { useState } from "react";
 import Header from "../../components/Header";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Footer from "../../components/Footer";
 
 const ShowPosts = ({ posts }: Posts) => {
     const [feed, setFeed] = useState(posts)
@@ -29,9 +28,13 @@ const ShowPosts = ({ posts }: Posts) => {
                 <Header title="Admin" path="/" />
 
                 <main className={styles.main}>
-                    <p className="mt-3">
-                        <Link href="/admin/create">Write an article </Link>
-                        <FontAwesomeIcon icon={ faPen } />
+                    <p className={styles.grid}>
+                        <Link href="/admin/create">
+                            <a className={styles.goBack}>
+                                <span className={styles.writeArticle}>Write an article</span>
+                                <FontAwesomeIcon icon={ faPen }/>
+                            </a>
+                        </Link>
                     </p>
 
                     <table className="table">
@@ -50,16 +53,16 @@ const ShowPosts = ({ posts }: Posts) => {
                         </tbody>
                     </table>
                 </main>
-                <footer className={styles.footer}>
-                    <button className="btn btn-outline-danger" onClick={() => signOut()}>Sign out</button>
-                </footer>
+                <Footer />
             </div>
         )
     }
     return (
         <div className={styles.container}>
-            Not signed in <br />
-            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            <div className={styles.main}>
+                <p>Not signed in</p>
+                <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            </div>
         </div>
     )
 }

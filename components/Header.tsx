@@ -1,7 +1,9 @@
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next"
 import Head from "next/head"
+import Link from "next/link";
 import styles from '../styles/Home.module.scss'
-import GoBack from "./GoBack";
 
 interface Props {
     title: string;
@@ -19,7 +21,11 @@ const Header: NextPage<Props> = (props) => {
 
             <div className={styles.main}>
                 {path ? (
-                    <GoBack path={path} />
+                    <Link href={path}>
+                        <a className={styles.goBack}>
+                            <FontAwesomeIcon icon={ faArrowLeft }/>
+                        </a>
+                    </Link>
                 ): null} 
                 <h1 className={styles.title}>
                     { title }

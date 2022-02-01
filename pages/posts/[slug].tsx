@@ -3,10 +3,6 @@ import superjson from 'superjson'
 import { Post } from './types'
 import { Params } from 'next/dist/server/router'
 import styles from '../../styles/Home.module.scss'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
-import GoBack from '../../components/GoBack'
 import Header from '../../components/Header'
 
 
@@ -14,8 +10,6 @@ const Post  = (post: Post) => {
     return(
         <div className={styles.container}>
             <Header title={post.title} path="/" />
-            
-
             <div className={styles.container}>
                 {post.content}
             </div>

@@ -4,12 +4,9 @@ import { Post } from "../posts/types"
 import superjson from 'superjson'
 import styles from '../../styles/Home.module.scss'
 import { useState } from "react"
-import Link from "next/link"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
-import GoBack from "../../components/GoBack"
 import Header from "../../components/Header"
 import { signIn, signOut, useSession } from "next-auth/react"
+import Footer from "../../components/Footer"
 
 
 const EditPost = (post: Post) => {
@@ -55,6 +52,7 @@ const EditPost = (post: Post) => {
             <div className={styles.container}>
                 <Header title="Edit" path="/admin" />
                 <main className={styles.main}>
+                    <div className={styles.form}>
                     <form onSubmit={editPost}>
                         <div className="mb-3">
                             <label htmlFor="title" className="form-label">Title</label>
@@ -74,17 +72,19 @@ const EditPost = (post: Post) => {
                         </div>
                         <button className="btn btn-outline-primary" type="submit">Register</button>
                     </form>
-                    <footer className={styles.footer}>
-                        <button className="btn btn-outline-danger" onClick={() => signOut()}>Sign out</button>
-                    </footer>
+                    </div>
+                    
                 </main>
+                <Footer />
             </div>
         )
     }
     return (
         <div className={styles.container}>
-            Not signed in <br />
-            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            <div className={styles.main}>
+                <p>Not signed in</p>
+                <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            </div>
         </div>
     )
 

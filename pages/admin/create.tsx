@@ -1,11 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
-import Head from "next/head"
-import Link from "next/link"
 import styles from '../../styles/Home.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
-import GoBack from "../../components/GoBack"
 import Header from "../../components/Header"
+import Footer from "../../components/Footer"
 
 const CreatePost = () =>  {
     const { data: session } = useSession()
@@ -15,8 +11,8 @@ const CreatePost = () =>  {
             <div className={styles.container}>
                 <Header title="New article!" path="/admin" />
 
-                <main className={styles.main}>      
-                    <div className="mt-5">
+                <main className={styles.main}>
+                    <div className={styles.form}>
                         <form onSubmit={createPost}>
                             <div className="mb-3">
                                 <label htmlFor="title" className="form-label">Title</label>
@@ -24,7 +20,7 @@ const CreatePost = () =>  {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="content" className="form-label">Content</label>
-                                <input id="content" type="textarea" autoComplete="content" required className="form-control" />
+                                <textarea id="content" autoComplete="content" required className="form-control"></textarea>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="title" className="form-label">Slug</label>
@@ -34,21 +30,21 @@ const CreatePost = () =>  {
                                 <input id="published" name="published" type="checkbox" className="form-check-input"/>
                                 <label htmlFor="published" className="form-check-label">Publish it ?</label>
                             </div>
-                            <button className="btn btn-outline-primary" type="submit">Register</button>
+                            <button className="btn btn-outline-success" type="submit">Register</button>
                         </form>
                     </div>
                 </main>
 
-                <footer className={styles.footer}>
-                    <button className="btn btn-outline-danger" onClick={() => signOut()}>Sign out</button>
-                </footer>
+                <Footer />
             </div>
         )
     }
     return (
         <div className={styles.container}>
-            Not signed in <br />
-            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            <div className={styles.main}>
+                <p>Not signed in</p>
+                <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+            </div>
         </div>
     )
 }

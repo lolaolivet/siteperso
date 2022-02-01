@@ -1,6 +1,6 @@
 import { NextPage } from "next"
 import Link from "next/link"
-import { Post, Posts } from "../pages/posts/types"
+import { Post } from "../pages/posts/types"
 
 interface Props {
     post: Post;
@@ -33,9 +33,9 @@ const PostShow: NextPage<Props> = (props) => {
             </td>
             <td>
                 <Link href={`admin/${props.post.id.toString()}`}>
-                    <button type="button" className="btn btn-outline-primary mx-1">Edit</button>
+                    <button type="button" className="btn btn-outline-info mx-1">Edit</button>
                 </Link>
-                <button onClick={ () => deletePost(props.post.id.toString())} type="button" className="btn btn-outline-danger mx-1">Delete</button>
+                <button onClick={ () => deletePost(props.post.id.toString())} type="button" className="btn btn-outline-warning mx-1">Delete</button>
             </td>
         </tr>
     )

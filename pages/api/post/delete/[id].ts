@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../../lib/prisma'
-import { Posts } from '../../../posts/types'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const  { id } = req.query
+    // @ts-ignore
     const postId = parseInt(id)
 
     const result = await prisma.post.delete({

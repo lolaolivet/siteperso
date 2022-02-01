@@ -6,9 +6,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const post: Post = req.body
     const  { id } = req.query
+    // @ts-ignore
     const postId = parseInt(id)
 
-    const response = await prisma.post.update({
+    await prisma.post.update({
         where: {
             id: postId
         },
