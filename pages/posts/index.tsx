@@ -6,6 +6,7 @@ import PostCard from '../../components/PostCard'
 import { Post, Feed } from './types'
 import superjson from 'superjson'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 const Posts = ({ feed }: Feed) => {
   return (
@@ -19,8 +20,7 @@ const Posts = ({ feed }: Feed) => {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-      </footer>
+      <Footer />
     </div>
   )
 }
@@ -38,6 +38,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
         props: { feed },
+        revalidate: 360000,
     }
 }
 
