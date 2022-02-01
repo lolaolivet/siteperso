@@ -5,20 +5,13 @@ import prisma from '../../lib/prisma'
 import PostCard from '../../components/PostCard'
 import { Post, Feed } from './types'
 import superjson from 'superjson'
+import Header from '../../components/Header'
 
 const Posts = ({ feed }: Feed) => {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Blogiblog</title>
-      </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to my Blog!
-        </h1>
-
-
+        <Header title="Welcome to my blog!" />
         <div className={styles.grid}>
           {feed.map((post: Post, index: number) => (
               <PostCard post={post} key={index}/>

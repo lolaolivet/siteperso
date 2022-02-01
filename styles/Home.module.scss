@@ -3,6 +3,7 @@
 }
 
 .main {
+  position: relative;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -105,6 +106,11 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.goBack {
+  position: absolute;
+  left: 0;
 }
 
 @media (max-width: 600px) {

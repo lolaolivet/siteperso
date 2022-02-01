@@ -5,6 +5,7 @@ import styles from '../../styles/Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import GoBack from "../../components/GoBack"
+import Header from "../../components/Header"
 
 const CreatePost = () =>  {
     const { data: session } = useSession()
@@ -12,16 +13,9 @@ const CreatePost = () =>  {
     if (session) {
         return (
             <div className={styles.container}>
-                <Head>
-                <title>Blogiblog</title>
-                </Head>
+                <Header title="New article!" path="/admin" />
 
-                <main className={styles.main}>
-                    <h1 className={styles.title}>
-                        Write an article!
-                    </h1>
-                    <GoBack path="/admin" />
-                    
+                <main className={styles.main}>      
                     <div className="mt-5">
                         <form onSubmit={createPost}>
                             <div className="mb-3">
@@ -52,10 +46,10 @@ const CreatePost = () =>  {
         )
     }
     return (
-            <div className={styles.container}>
-                Not signed in <br />
-                <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
-            </div>
+        <div className={styles.container}>
+            Not signed in <br />
+            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+        </div>
     )
 }
 

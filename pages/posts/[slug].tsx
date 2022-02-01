@@ -7,16 +7,16 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import GoBack from '../../components/GoBack'
+import Header from '../../components/Header'
 
 
 const Post  = (post: Post) => {
     return(
         <div className={styles.container}>
-            <h1 className={styles.title}>
-                {post.title}
-            </h1>
-            <GoBack path='/' />
-            <div>
+            <Header title={post.title} path="/" />
+            
+
+            <div className={styles.container}>
                 {post.content}
             </div>
         </div>

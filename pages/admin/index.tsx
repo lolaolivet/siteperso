@@ -10,10 +10,12 @@ import GoBack from "../../components/GoBack";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen'
 import { useState } from "react";
+import Header from "../../components/Header";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const ShowPosts = ({ posts }: Posts) => {
-
     const [feed, setFeed] = useState(posts)
+    const { data: session } = useSession()
 
     const deletePost = (data: string) => {
         const newFeed = feed.filter(post => post.id !== parseInt(data))
@@ -21,40 +23,43 @@ const ShowPosts = ({ posts }: Posts) => {
         setFeed(newFeed)
     }
 
+    if(session) {
+        return (
+            <div className={styles.container}>
+                <Header title="Admin" path="/" />
+
+                <main className={styles.main}>
+                    <p className="mt-3">
+                        <Link href="/admin/create">Write an article </Link>
+                        <FontAwesomeIcon icon={ faPen } />
+                    </p>
+
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Published</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {feed.map((post: Post, index: number) => (
+                                <PostShow post={post} key={index} delete={deletePost}/>
+                            ))}
+                        </tbody>
+                    </table>
+                </main>
+                <footer className={styles.footer}>
+                    <button className="btn btn-outline-danger" onClick={() => signOut()}>Sign out</button>
+                </footer>
+            </div>
+        )
+    }
     return (
         <div className={styles.container}>
-            <Head>
-            <title>Blogiblog</title>
-            </Head>
-
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Admin
-                </h1>
-                <div>
-                    <GoBack path="/" />
-                </div>
-                <h3 className="mt-3">
-                    <Link href="/create">Write an article </Link>
-                    <FontAwesomeIcon icon={ faPen } />
-                </h3>
-
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Published</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {feed.map((post: Post, index: number) => (
-                            <PostShow post={post} key={index} delete={deletePost}/>
-                        ))}
-                    </tbody>
-                </table>
-            </main>
+            Not signed in <br />
+            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
         </div>
     )
 }

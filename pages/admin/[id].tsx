@@ -8,6 +8,8 @@ import Link from "next/link"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import GoBack from "../../components/GoBack"
+import Header from "../../components/Header"
+import { signIn, signOut, useSession } from "next-auth/react"
 
 
 const EditPost = (post: Post) => {
@@ -15,6 +17,7 @@ const EditPost = (post: Post) => {
     const [content, setContent] = useState(post.content)
     const [slug, setSlug] = useState(post.slug)
     const [published, setPublished] = useState(post.published)
+    const { data: session } = useSession()
 
     const onChangeTitle = (e: any) => {
         setTitle(e.target.value)
@@ -47,36 +50,44 @@ const EditPost = (post: Post) => {
         method: 'PUT'
     })
 }
-
-    return (
-        <main className={styles.main}>
-            <h1 className={styles.title}>
-                Write an article!
-            </h1>
-            <GoBack path={"/admin"} />
-            <div className="mt-5">
-                <form onSubmit={editPost}>
-                    <div className="mb-3">
-                        <label htmlFor="title" className="form-label">Title</label>
-                        <input onChange={onChangeTitle} value={title} id="title" type="text" autoComplete="title" required className="form-control"/>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="content" className="form-label">Content</label>
-                        <textarea onChange={onChangeContent} value={content} id="content" autoComplete="content" required className="form-control"></textarea>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="title" className="form-label">Slug</label>
-                        <input onChange={onChangeSlug} value={slug} id="slug" type="text" autoComplete="slug" required className="form-control" />
-                    </div>
-                    <div className="mb-3 form-check">
-                        <input onChange={onChangePublished} checked={published} id="published" name="published" type="checkbox" className="form-check-input"/>
-                        <label htmlFor="published" className="form-check-label">Publish it ?</label>
-                    </div>
-                    <button className="btn btn-outline-primary" type="submit">Register</button>
-                </form>
+    if(session) {
+        return (
+            <div className={styles.container}>
+                <Header title="Edit" path="/admin" />
+                <main className={styles.main}>
+                    <form onSubmit={editPost}>
+                        <div className="mb-3">
+                            <label htmlFor="title" className="form-label">Title</label>
+                            <input onChange={onChangeTitle} value={title} id="title" type="text" autoComplete="title" required className="form-control"/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="content" className="form-label">Content</label>
+                            <textarea onChange={onChangeContent} value={content} id="content" autoComplete="content" required className="form-control"></textarea>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="title" className="form-label">Slug</label>
+                            <input onChange={onChangeSlug} value={slug} id="slug" type="text" autoComplete="slug" required className="form-control" />
+                        </div>
+                        <div className="mb-3 form-check">
+                            <input onChange={onChangePublished} checked={published} id="published" name="published" type="checkbox" className="form-check-input"/>
+                            <label htmlFor="published" className="form-check-label">Publish it ?</label>
+                        </div>
+                        <button className="btn btn-outline-primary" type="submit">Register</button>
+                    </form>
+                    <footer className={styles.footer}>
+                        <button className="btn btn-outline-danger" onClick={() => signOut()}>Sign out</button>
+                    </footer>
+                </main>
             </div>
-        </main>
+        )
+    }
+    return (
+        <div className={styles.container}>
+            Not signed in <br />
+            <button className="btn btn-outline-warning" onClick={() => signIn()}>Sign in</button>
+        </div>
     )
+
 }
 
 export const getStaticPaths = async () => {
