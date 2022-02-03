@@ -30,7 +30,6 @@ const EditPost = (post: Post) => {
 
     const handleOnChangeContent = ({ html, text }: ContentOptions)  => {
         const newValue = text.replace(/\d/g, "");
-        console.log(newValue);
         setContent(newValue);
     };
 
@@ -44,7 +43,6 @@ const EditPost = (post: Post) => {
 
    const editPost = async (event: any) => {
         event.preventDefault()
-        console.log(content)
         await fetch(`/api/post/${post.id}`, {
             body: JSON.stringify({
                 title: title,
