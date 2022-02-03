@@ -4,6 +4,7 @@ import { Post } from './types'
 import { Params } from 'next/dist/server/router'
 import styles from '../../styles/Home.module.scss'
 import Header from '../../components/Header'
+import ReactMarkdown from 'react-markdown'
 
 
 const Post  = (post: Post) => {
@@ -11,7 +12,7 @@ const Post  = (post: Post) => {
         <div className={styles.container}>
             <Header title={post.title} path="/" />
             <div className={styles.container}>
-                {post.content}
+                <ReactMarkdown>{post.content}</ReactMarkdown>
             </div>
         </div>
     )

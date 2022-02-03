@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const data: Post = req.body
 
-    const response = await prisma.post.create({
+    await prisma.post.create({
         data: {
             title: data.title,
             slug: data.slug,

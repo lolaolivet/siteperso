@@ -13,7 +13,6 @@ const Post: NextPage<Props> = (props) => {
         <Link href={`posts/${article.slug}`}>
             <div className={ styles.card }>
                 <h2>{ article.title }</h2>
-                <p>{ article.content.slice(0,20) + '...' }</p>
             </div>
         </Link>
 
