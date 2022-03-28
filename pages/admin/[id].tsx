@@ -43,7 +43,7 @@ const EditPost = (post: Post) => {
 
    const editPost = async (event: any) => {
         event.preventDefault()
-        await fetch(`/api/post/${post.id}`, {
+        await fetch(`${process.env.API_URL}/api/post/${post.id}`, {
             body: JSON.stringify({
                 title: title,
                 content: content,
