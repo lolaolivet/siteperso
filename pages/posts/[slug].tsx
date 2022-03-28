@@ -1,6 +1,6 @@
 import prisma from '../../lib/prisma'
 import superjson from 'superjson'
-import { Post } from './types'
+import { Post } from '../../types'
 import { Params } from 'next/dist/server/router'
 import styles from '../../styles/Home.module.scss'
 import Header from '../../components/Header'

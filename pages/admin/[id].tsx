@@ -1,6 +1,6 @@
 import { Params } from "next/dist/server/router"
 import prisma from "../../lib/prisma"
-import { Post } from "../posts/types"
+import { Post } from "../../types"
 import superjson from 'superjson'
 import styles from '../../styles/Home.module.scss'
 import React, { useState } from "react"

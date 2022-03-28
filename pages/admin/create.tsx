@@ -20,7 +20,7 @@ const CreatePost = () =>  {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="content" className="form-label">Content</label>
-                                <textarea id="content" autoComplete="content" required className="form-control"></textarea>
+                                <textarea id="content" autoComplete="content" required className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="title" className="form-label">Slug</label>

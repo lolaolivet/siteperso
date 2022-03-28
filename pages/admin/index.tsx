@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next"
 import prisma from "../../lib/prisma"
-import { Post, Posts } from "../posts/types"
+import { Post, Posts } from "../../types"
 import superjson from 'superjson';
 import styles from '../../styles/Home.module.scss'
 import PostShow from '../../components/PostShow'
@@ -43,7 +43,7 @@ const ShowPosts = ({ posts }: Posts) => {
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Published</th>
-                                <th scope="col"></th>
+                                <th scope="col" />
                             </tr>
                         </thead>
                         <tbody>
