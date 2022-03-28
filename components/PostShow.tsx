@@ -1,6 +1,6 @@
 import { NextPage } from "next"
 import Link from "next/link"
-import { Post } from "../pages/posts/types"
+import { Post } from "../types"
 
 interface Props {
     post: Post;

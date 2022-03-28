@@ -1,6 +1,6 @@
 import styles from '../styles/Home.module.scss'
 import { NextPage } from 'next'
-import { Post } from '../pages/posts/types'
+import { Post } from '../types'
 import Link from 'next/link'
 
 interface Props {
