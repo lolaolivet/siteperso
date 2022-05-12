@@ -52,7 +52,7 @@ const CreatePost = () =>  {
 
 const createPost = async (event: any) => {
     event.preventDefault()
-    await fetch(`${process.env.API_BASE_URL}/api/post`, {
+    await fetch(`/api/post`, {
         body: JSON.stringify({
             title: event.target.title.value,
             content: event.target.content.value,
